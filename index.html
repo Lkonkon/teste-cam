@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111210" />
+    <title>Gesto em Cena</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#" aria-label="Gesto em Cena, início">
+          <span class="brand-mark"><span></span><span></span><span></span></span>
+          <span>gesto<span class="brand-light">em cena</span></span>
+        </a>
+
+        <div class="workspace-label">SEU ESTÚDIO</div>
+        <nav class="main-nav" aria-label="Navegação principal">
+          <button class="nav-item active" type="button">
+            <i data-lucide="scan-line"></i><span>Reconhecimento</span>
+            <span class="nav-dot"></span>
+          </button>
+          <button class="nav-item" type="button" id="gallery-nav">
+            <i data-lucide="images"></i><span>Minha galeria</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-divider"></div>
+        <div class="workspace-label">GESTOS ATIVOS <span class="count-pill">01</span></div>
+        <button class="gesture-link" type="button" id="gesture-shortcut">
+          <span class="mini-gesture">🤫</span>
+          <span><strong>Silêncio</strong><small>Indicador nos lábios</small></span>
+          <span class="gesture-enabled"></span>
+        </button>
+
+        <div class="sidebar-bottom">
+          <div class="privacy-card">
+            <i data-lucide="shield-check"></i>
+            <div><strong>Privacidade primeiro</strong><p>Seu vídeo é processado no dispositivo e nunca é gravado.</p></div>
+          </div>
+          <div class="profile">
+            <div class="profile-avatar">GC</div>
+            <div class="profile-copy"><strong>Meu espaço</strong><span>Modo pessoal</span></div>
+            <i data-lucide="more-horizontal"></i>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Seu estúdio</span><i data-lucide="chevron-right"></i><strong>Reconhecimento</strong></div>
+          <div class="topbar-actions">
+            <span class="local-badge"><span></span> PROCESSAMENTO LOCAL</span>
+            <button class="icon-button" id="help-button" aria-label="Informações" title="Sobre o reconhecimento"><i data-lucide="circle-help"></i></button>
+          </div>
+        </header>
+
+        <section class="page-content">
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> SEU ESPAÇO CRIATIVO</div>
+              <h1>Deixe o gesto <span>falar.</span></h1>
+              <p>Uma câmera, um gesto e a imagem certa na hora certa.</p>
+            </div>
+            <div class="session-indicator" id="session-indicator"><span class="status-orb"></span><span id="session-label">CÂMERA DESLIGADA</span></div>
+          </div>
+
+          <div class="studio-grid">
+            <section class="camera-column" aria-label="Pré-visualização da câmera">
+              <div class="camera-toolbar">
+                <div class="camera-title"><span class="camera-live-dot" id="camera-dot"></span><span id="camera-label">PRÉ-VISUALIZAÇÃO</span></div>
+                <button class="camera-switch" id="flip-button" type="button" aria-label="Espelhar câmera" title="Espelhar imagem"><i data-lucide="flip-horizontal-2"></i></button>
+              </div>
+              <div class="camera-stage" id="camera-stage">
+                <video id="camera-video" autoplay muted playsinline></video>
+                <div class="camera-shade"></div>
+                <div class="viewfinder" aria-hidden="true"><span class="corner top-left"></span><span class="corner top-right"></span><span class="corner bottom-left"></span><span class="corner bottom-right"></span></div>
+                <div class="face-outline hidden" id="face-outline"><span></span></div>
+                <div class="camera-placeholder" id="camera-placeholder">
+                  <div class="placeholder-icon"><i data-lucide="webcam"></i><span class="placeholder-sparkle">✳</span></div>
+                  <strong>Seu palco está pronto</strong>
+                  <p>Ative a câmera para começar a reconhecer seus gestos.</p>
+                  <button class="primary-button" id="start-button" type="button"><i data-lucide="video"></i> Ativar câmera</button>
+                </div>
+                <div class="camera-hud hidden" id="camera-hud">
+                  <div class="hud-person"><span class="hud-face"><i data-lucide="scan-face"></i></span><span><strong>Pessoa detectada</strong><small>Rosto localizado</small></span></div>
+                  <div class="hud-fps"><span class="hud-pulse"></span> AO VIVO</div>
+                </div>
+                <div class="gesture-toast hidden" id="gesture-toast"><span>🤫</span><div><strong>Shhh! Gesto reconhecido</strong><small>Exibindo sua imagem</small></div><i data-lucide="sparkles"></i></div>
+              </div>
+
+              <div class="camera-controls">
+                <label class="device-select-wrap" for="camera-select"><i data-lucide="video"></i><select id="camera-select" aria-label="Selecionar câmera"><option value="">Selecione uma câmera</option></select><i data-lucide="chevron-down"></i></label>
+                <button class="secondary-button" id="stop-button" type="button" disabled><i data-lucide="video-off"></i> Desativar</button>
+              </div>
+              <div class="recognition-status"><span class="status-check" id="recognition-icon"><i data-lucide="scan"></i></span><span id="recognition-message">Aguardando ativação da câmera</span><button class="text-button" id="reset-button" type="button">Redefinir gesto</button></div>
+            </section>
+
+            <section class="result-column" aria-label="Imagem associada ao gesto">
+              <div class="result-heading">
+                <div><span class="section-kicker">QUANDO VOCÊ FIZER</span><h2>O gesto do silêncio</h2></div>
+                <button class="more-button" id="image-info" type="button" aria-label="Informações da imagem"><i data-lucide="ellipsis"></i></button>
+              </div>
+              <div class="gesture-visual">
+                <div class="gesture-orbit orbit-one"></div><div class="gesture-orbit orbit-two"></div>
+                <span class="gesture-emoji">🤫</span><span class="gesture-star star-one">✳</span><span class="gesture-star star-two">✦</span>
+                <span class="gesture-caption">INDICADOR NOS LÁBIOS</span>
+              </div>
+              <div class="result-arrow"><span></span><i data-lucide="arrow-down"></i><span></span></div>
+              <div class="image-card">
+                <div class="image-preview-wrap"><img class="result-image" src="/images/silencio.png" alt="Gato fazendo gesto de silêncio, a imagem exibida quando o gesto é reconhecido" /><div class="image-overlay"><span><i data-lucide="sparkles"></i> IMAGEM DO GESTO</span><button type="button" id="expand-image" aria-label="Ver imagem ampliada"><i data-lucide="expand"></i></button></div></div>
+                <div class="image-caption"><div><strong>Shhh… segredo nosso</strong><span>Imagem vinculada ao gesto</span></div><button class="edit-button" id="change-image" type="button"><i data-lucide="image-plus"></i> Trocar imagem</button><input id="image-input" type="file" accept="image/*" hidden /></div>
+              </div>
+              <div class="gesture-tip"><i data-lucide="lightbulb"></i><p><strong>Dica:</strong> coloque o dedo indicador na frente dos lábios e mantenha por um instante.</p></div>
+            </section>
+          </div>
+
+          <footer class="page-footer"><span><i data-lucide="lock-keyhole"></i> Nenhum vídeo ou dado biométrico é armazenado</span><span>FEITO PARA BRINCAR COM GESTOS <span class="footer-heart">✳</span></span></footer>
+        </section>
+      </main>
+      <div class="toast-message hidden" id="toast-message" role="status"></div>
+      <div class="modal-backdrop hidden" id="image-modal"><button class="modal-close" id="modal-close" aria-label="Fechar"><i data-lucide="x"></i></button><img src="/images/silencio.png" alt="Imagem vinculada ao gesto do silêncio" /></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
